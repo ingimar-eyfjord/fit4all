@@ -1,0 +1,74 @@
+[
+    {
+      "_id": "62a705e18a4662afbd4d6160",
+      "email": "jamieschroeder@slambda.com",
+      "phone": "+1 (969) 447-3447",
+      "address": "445 Wallabout Street, Summerset, Pennsylvania, 5792",
+      "latitude": -44.89539,
+      "longitude": 5.896654
+    },
+    {
+      "_id": "62a705e13b8ebd0060c24e27",
+      "email": "jamieschroeder@slambda.com",
+      "phone": "+1 (995) 415-3403",
+      "address": "619 Homecrest Court, Cressey, Vermont, 9417",
+      "latitude": 85.441374,
+      "longitude": 83.421408
+    },
+    {
+      "_id": "62a705e1336deee136482e10",
+      "email": "jamieschroeder@slambda.com",
+      "phone": "+1 (848) 567-3078",
+      "address": "786 Fleet Walk, Dundee, Nevada, 9994",
+      "latitude": 27.347537,
+      "longitude": -74.731405
+    },
+    {
+      "_id": "62a705e142b5c838e5d89316",
+      "email": "jamieschroeder@slambda.com",
+      "phone": "+1 (901) 533-3357",
+      "address": "859 Powers Street, Dyckesville, Iowa, 1785",
+      "latitude": -46.795562,
+      "longitude": -72.852087
+    },
+    {
+      "_id": "62a705e1d7e386f9dfb45c0c",
+      "email": "jamieschroeder@slambda.com",
+      "phone": "+1 (906) 402-3570",
+      "address": "549 Clarkson Avenue, Harrison, Oregon, 7937",
+      "latitude": -20.250704,
+      "longitude": 126.783534
+    },
+    {
+      "_id": "62a705e165b50391bbb2e8ff",
+      "email": "jamieschroeder@slambda.com",
+      "phone": "+1 (831) 466-2214",
+      "address": "787 Dodworth Street, Canterwood, Federated States Of Micronesia, 5960",
+      "latitude": 45.139359,
+      "longitude": -137.461999
+    },
+    {
+      "_id": "62a705e10fa995a35bcb76e5",
+      "email": "jamieschroeder@slambda.com",
+      "phone": "+1 (922) 573-3649",
+      "address": "107 Gaylord Drive, Wanship, Arkansas, 3455",
+      "latitude": 18.420914,
+      "longitude": 77.511527
+    },
+    {
+      "_id": "62a705e13a683049397dc4e4",
+      "email": "jamieschroeder@slambda.com",
+      "phone": "+1 (931) 467-3533",
+      "address": "562 President Street, Brule, Montana, 7668",
+      "latitude": 27.124126,
+      "longitude": -28.726328
+    },
+    {
+      "_id": "62a705e1f1ebcfc292049b1e",
+      "email": "jamieschroeder@slambda.com",
+      "phone": "+1 (918) 537-3373",
+      "address": "838 Erasmus Street, Turah, Arizona, 374",
+      "latitude": -50.290799,
+      "longitude": 96.034497
+    }
+  ]
