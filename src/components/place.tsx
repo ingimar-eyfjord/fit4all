@@ -102,7 +102,6 @@ const Place: React.FC<PlaceProps> = ({ place }): JSX.Element => {
           {bookedInfo}
           </Stack>
           </Stack>
-
       </AccordionDetails>
     </Accordion>
 
