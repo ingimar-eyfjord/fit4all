@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useContext ,useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { usePosition } from "./services/useposition";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -12,15 +11,18 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import { make_json } from './services/make_json'
-import { Typography } from '@mui/material';
 import Place from './components/place'
+import { GlobalState } from "./providers/store";
 
 
 function App() {
-  // const pos = usePosition();
+  const [store, setStore] = useContext(GlobalState);
   const places = make_json()
-  
 
+ useEffect(() => {
+  console.log(store)
+ }, [store])
+ 
 
   return (
     <div className="App">
@@ -69,7 +71,7 @@ function App() {
           </Stack>
 
           {places.map((e, index) => {
-            return <Place key={index} place={e}/>;
+            return <Place key={index} place={e} />;
           })}
 
         </Stack>

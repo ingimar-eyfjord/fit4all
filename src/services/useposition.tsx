@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useContext ,useEffect} from 'react';
+import { GlobalState } from "../providers/store";
 
 interface Coords {
     latitude: number;
@@ -6,17 +7,21 @@ interface Coords {
 }
 
 export const usePosition = () => {
+  const [store, setStore] = useContext(GlobalState);
+
     const [position, setPosition] = useState({});
     const [error, setError] = useState<string | null>(null);
-    const onChange = (response :any) => {
-        console.log(response)
+    const onChange = (response: any) => {
         const { latitude, longitude }: Coords = response.coords;
         setPosition({
             latitude: latitude,
             longitude: longitude,
         });
+        setStore({
+            latitude: latitude,
+            longitude: longitude,
+        });
     };
-
     const onError = (error: any) => {
         setError(error);
     };

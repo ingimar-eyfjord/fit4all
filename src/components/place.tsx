@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect, useCallback, useContext } from "react";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -9,31 +9,17 @@ import { extendMoment } from 'moment-range';
 import * as _ from 'lodash'
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
-import EventAvailableIcon from '@mui/icons-material/EventAvailable';
-type PlaceType = {
-  name: string,
-  opening: string[],
-  bookings: [
-    {
-      User_id: string,
-      period: string[]
-    }
-  ]
-};
+import { PlaceType } from '../services/types'
+import { ModalContext } from '../providers/modals'
+import {Time_ranger} from './time_ranger'
 
-type BookingsType = {
-  from: string,
-  to: string
-};
 interface PlaceProps {
   place: PlaceType,
-  bookings: BookingsType
 }
 
 const Place: React.FC<PlaceProps> = ({ place }): JSX.Element => {
+  let { handleModal } = useContext(ModalContext);
   const moment = extendMoment(Moment);
-
   const today = moment().format('YYYY-MM-DD')
   const opening = moment(`${today} ${place.opening[0]}`)
   const closing = moment(`${today} ${place.opening[1]}`)
@@ -45,32 +31,31 @@ const Place: React.FC<PlaceProps> = ({ place }): JSX.Element => {
     }
     return _.flatten(source.map(s => {
       return _.flatten(others).reduce((remaining, o) => {
-        return _.flatten(remaining.map(r => r.subtract(o)))
+        return _.flatten(remaining.map((r: any) => r.subtract(o)))
       }, [s])
-      return remaining
     }))
   }
 
   let booked: any[] = []
-  for (const e of place.bookings){
-    const from = moment(`${today} ${e.period[0]}`)
-    const to = moment(`${today} ${e.period[1]}`)
+  for (const e of place.bookings) {
+    const from = moment(`${today} ${e.from}`)
+    const to = moment(`${today} ${e.to}`)
     const booking = moment.range(from, to);
     booked.push(booking)
   }
-  
+
 
   booked = _.orderBy(booked, [(item) => {
     return moment(item.to).format('YYYY-MM-DD')
- }], ['asc'])
+  }], ['asc'])
 
   let availability = subtractRanges([range], booked);
 
   const availableInfo = availability.map((e, index) => {
-    return <Typography key={index+e.start} sx={{ textAlign: "left" }} component="p">{e.start.format("HH:mm")} - {e.end.format("HH:mm")}</Typography>
+    return <Typography key={index + e.start} sx={{ textAlign: "left" }} component="p">{e.start.format("HH:mm")} - {e.end.format("HH:mm")}</Typography>
   })
   const bookedInfo = booked.map((e, index) => {
-    return <Typography key={index+e.start} sx={{ textAlign: "left" }} component="p">{e.start.format("HH:mm")} - {e.end.format("HH:mm")}</Typography>
+    return <Typography key={index + e.start} sx={{ textAlign: "left" }} component="p">{e.start.format("HH:mm")} - {e.end.format("HH:mm")}</Typography>
   })
 
   return (
@@ -85,35 +70,29 @@ const Place: React.FC<PlaceProps> = ({ place }): JSX.Element => {
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-      
-
-      <Stack
-            direction="column"
-            spacing={2}
-            sx={{textAlign:"left"}}
-            >
+        <Stack
+          direction="column"
+          spacing={2}
+          sx={{ textAlign: "left" }}
+        >
           <Typography sx={{ textAlign: "left" }} component="h2">Open {place.opening[0]} - {place.opening[1]}</Typography>
           <Typography sx={{ textAlign: "left" }} component="p">Available today</Typography>
           <Stack
             direction="row"
             divider={<Divider orientation="vertical" flexItem />}
             spacing={1}>
-              
-          {availableInfo}
-          </Stack>
-          
-          <Button variant="contained" startIcon={<EventAvailableIcon />}>
-        Book
-      </Button>
 
+            {availableInfo}
+          </Stack>
+          <Time_ranger place={place}/>
           <Typography sx={{ textAlign: "left" }} component="p">Booked between</Typography>
           <Stack
             direction="row"
             divider={<Divider orientation="vertical" flexItem />}
             spacing={1}>
-          {bookedInfo}
+            {bookedInfo}
           </Stack>
-          </Stack>
+        </Stack>
       </AccordionDetails>
     </Accordion>
 

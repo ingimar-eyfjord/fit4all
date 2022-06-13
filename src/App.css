@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+#modal{
+  z-index: 5;
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  background-color: #282c3450;
+}
+#booking_card{
+  z-index: 5;
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 60%;
+}
