@@ -9,7 +9,8 @@ import { extendMoment } from 'moment-range';
 import * as _ from 'lodash'
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-
+import Button from '@mui/material/Button';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 type PlaceType = {
   name: string,
   opening: string[],
@@ -51,12 +52,18 @@ const Place: React.FC<PlaceProps> = ({ place }): JSX.Element => {
   }
 
   let booked: any[] = []
-  place.bookings.forEach(e => {
+  for (const e of place.bookings){
     const from = moment(`${today} ${e.period[0]}`)
     const to = moment(`${today} ${e.period[1]}`)
     const booking = moment.range(from, to);
     booked.push(booking)
-  })
+  }
+  
+
+  booked = _.orderBy(booked, [(item) => {
+    return moment(item.to).format('YYYY-MM-DD')
+ }], ['asc'])
+
   let availability = subtractRanges([range], booked);
 
   const availableInfo = availability.map((e, index) => {
@@ -65,6 +72,7 @@ const Place: React.FC<PlaceProps> = ({ place }): JSX.Element => {
   const bookedInfo = booked.map((e, index) => {
     return <Typography key={index+e.start} sx={{ textAlign: "left" }} component="p">{e.start.format("HH:mm")} - {e.end.format("HH:mm")}</Typography>
   })
+
   return (
     <Accordion>
       <AccordionSummary
@@ -94,6 +102,10 @@ const Place: React.FC<PlaceProps> = ({ place }): JSX.Element => {
           {availableInfo}
           </Stack>
           
+          <Button variant="contained" startIcon={<EventAvailableIcon />}>
+        Book
+      </Button>
+
           <Typography sx={{ textAlign: "left" }} component="p">Booked between</Typography>
           <Stack
             direction="row"

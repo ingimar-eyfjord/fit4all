@@ -81,7 +81,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 let numberGenerator = function (arr) {
-    if (arr.length >= 6) return;
+    if (arr.length >= getRandomInt(2, 7) ) return;
     let newNumber = getRandomInt(1, 12);
     if (arr.indexOf(newNumber) < 0) {
       arr.push(newNumber);
