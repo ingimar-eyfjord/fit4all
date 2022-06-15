@@ -1,4 +1,6 @@
 import React, { createContext, useReducer } from "react";
+
+
 const initialState = {};
 
 export const GlobalState = createContext(initialState);

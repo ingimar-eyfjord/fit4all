@@ -1,14 +1,13 @@
 import React, { useState, useContext ,useEffect} from 'react';
-import { GlobalState } from "../providers/store";
+// import { GlobalState } from "../providers/store";
 
 interface Coords {
     latitude: number;
     longitude: number;
 }
+// const Child = ({ setValue2 }: { setValue2: React.Dispatch<React.SetStateAction<string>> }) => {
 
 export const usePosition = () => {
-  const [store, setStore] = useContext(GlobalState);
-
     const [position, setPosition] = useState({});
     const [error, setError] = useState<string | null>(null);
     const onChange = (response: any) => {
@@ -17,10 +16,10 @@ export const usePosition = () => {
             latitude: latitude,
             longitude: longitude,
         });
-        setStore({
-            latitude: latitude,
-            longitude: longitude,
-        });
+        // setStore({
+        //     latitude: latitude,
+        //     longitude: longitude,
+        // });
     };
     const onError = (error: any) => {
         setError(error);

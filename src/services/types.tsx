@@ -16,7 +16,8 @@ export type PlaceType = {
     timeslot: string[],
     opening: string[],
     coord: number[]
-    id:number,name: string,
+    id:number,
+    name: string,
     bookings: BookingsType[]
   }; 
 
@@ -27,3 +28,15 @@ export type PlaceType = {
     bookings: BookingsType[]
     coord: number[]
   }[];
+
+
+ 
+  export type ModalContent = {
+      id: number,
+      name: string,
+      opening: string[],
+      bookings: any,
+      coord: number[],
+      timeslot: string[],
+      modal:boolean,
+  }

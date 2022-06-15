@@ -13,7 +13,7 @@ interface PlaceProps {
 }
 
 export const Time_ranger: React.FC<PlaceProps> = ({ place }): JSX.Element => {
-    let { handleModal } = useContext(ModalContext);
+    let { useModal } = useContext(ModalContext);
     const [booking, setBookingState] = useState({
         start: "09:00",
         end: "17:30",
@@ -68,7 +68,7 @@ export const Time_ranger: React.FC<PlaceProps> = ({ place }): JSX.Element => {
                     }}
                     sx={{ width: 150 }}
                 />
-                <Button onClick={e => { handleModal(booking) }} variant="contained" startIcon={<EventAvailableIcon />}>
+                <Button onClick={e => { useModal(booking) }} variant="contained" startIcon={<EventAvailableIcon />}>
                     Book
                 </Button>
             </Stack>

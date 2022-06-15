@@ -12,7 +12,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
 export const Booking_modal = () => {
-  let { modalContent, handleModal, modal } = React.useContext(ModalContext);
+  let { useModal, modalContent  } = React.useContext(ModalContext);
   const bull = (
     <Box
       component="span"
@@ -22,19 +22,19 @@ export const Booking_modal = () => {
     </Box>
   );
 
-  if (modal) {
+  if (modalContent.modal) {
     return ReactDOM.createPortal(
-      <div id="modal" onClick={e => { handleModal(false) }}>
+      <div id="modal" onClick={e => { useModal(false) }}>
         <Card id="booking_card" sx={{ minWidth: 275 }}>
 
           <CardHeader
             action={
-              <Button onClick={e => { handleModal(false) }} variant="contained" endIcon={<CloseIcon />}>
+              <Button onClick={e => { useModal(false) }} variant="contained" endIcon={<CloseIcon />}>
                 Cancel
               </Button>
             }
-            title={modalContent.place.name}
-            subheader={`${modalContent.start}-${modalContent.end}`}
+            title={modalContent.name}
+            subheader={`${modalContent.timeslot[0]}-${modalContent.timeslot[1]}`}
           />
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>

@@ -1,22 +1,28 @@
 import React from "react";
-import {BookingProps} from '../services/types'
+import {ModalContent} from '../services/types'
 
-export default function useModal () {
-  let [modal, setModal] = React.useState<boolean>(false);
-  let [modalContent, setModalContent] = React.useState<BookingProps | boolean>({
-    id:1,
-    name: "Tårnbyvej 88, 2770 Kastrup",
-    opening: ["09:00", "19:00"],
-    coord: [55.633713, 12.606089],
-    bookings:[],
-    timeslot: ["09:00", "19:00"],
+export default function useModalProvider () {
+  // let [modal, setModal] = React.useState<boolean>(false);
+
+  let [modalContent, setModalContent] = React.useState<ModalContent>({
+      id:1,
+      name: "Tårnbyvej 88, 2770 Kastrup",
+      opening: ["09:00", "19:00"],
+      coord: [55.633713, 12.606089],
+      bookings:[],
+      timeslot: ["09:00", "19:00"],
+      modal:false,
 });
-  let handleModal = (content:BookingProps) => {
-    setModal(!modal);
+
+  let useModal = (content:ModalContent) => {
+    setModalContent((state) => ({
+      ...state,
+      modal: !state.modal,
+    }));
     if (content) {
       setModalContent(content);
     }
   };
 
-  return { modal, handleModal, modalContent };
+  return [ useModal, modalContent ] as const;
 };

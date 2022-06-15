@@ -18,7 +18,7 @@ interface PlaceProps {
 }
 
 const Place: React.FC<PlaceProps> = ({ place }): JSX.Element => {
-  let { handleModal } = useContext(ModalContext);
+  let { useModal } = useContext(ModalContext);
   const moment = extendMoment(Moment);
   const today = moment().format('YYYY-MM-DD')
   const opening = moment(`${today} ${place.opening[0]}`)

@@ -1,5 +1,4 @@
 import React, { useState, useContext ,useEffect} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -12,17 +11,31 @@ import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import { make_json } from './services/make_json'
 import Place from './components/place'
-import { GlobalState } from "./providers/store";
+// import { GlobalState } from "./providers/store";
 
-
+interface Coords {
+  latitude: number;
+  longitude: number;
+}
 function App() {
-  const [store, setStore] = useContext(GlobalState);
+  // const [store, setStore] = useContext(GlobalState);
   const places = make_json()
 
- useEffect(() => {
-  console.log(store)
- }, [store])
- 
+//  useEffect(() => {
+//   console.log("rendered", store)
+//  }, [store])
+//  console.log("initial render")
+
+
+
+
+const [position, setPosition] = useState({});
+
+useEffect(() => {
+  console.log(position)
+}, [position])
+
+
 
   return (
     <div className="App">
@@ -67,7 +80,7 @@ function App() {
             divider={<Divider orientation="vertical" flexItem />}
             spacing={1}>
             <TextField id="outlined-basic" label="Search by street" variant="outlined" />
-            <GetCurrentLocation></GetCurrentLocation>
+            <GetCurrentLocation setPosition={setPosition}></GetCurrentLocation>
           </Stack>
 
           {places.map((e, index) => {
