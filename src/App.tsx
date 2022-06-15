@@ -52,6 +52,7 @@ const [position, setPosition] = useState({});
               },
             }}
           />
+          Imagine this to be a google map
         </Stack>
 
         <Stack
