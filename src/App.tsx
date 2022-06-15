@@ -9,32 +9,15 @@ import GetCurrentLocation from './components/getlocation'
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
-import { make_json } from './services/make_json'
-import Place from './components/place'
 // import { GlobalState } from "./providers/store";
-
+import SideSelector from './components/sideselector'
 interface Coords {
   latitude: number;
   longitude: number;
 }
 function App() {
-  // const [store, setStore] = useContext(GlobalState);
-  const places = make_json()
-
-//  useEffect(() => {
-//   console.log("rendered", store)
-//  }, [store])
-//  console.log("initial render")
-
-
-
 
 const [position, setPosition] = useState({});
-
-useEffect(() => {
-  console.log(position)
-}, [position])
-
 
 
   return (
@@ -83,10 +66,7 @@ useEffect(() => {
             <GetCurrentLocation setPosition={setPosition}></GetCurrentLocation>
           </Stack>
 
-          {places.map((e, index) => {
-            return <Place key={index} place={e} />;
-          })}
-
+        <SideSelector></SideSelector>
         </Stack>
       </Stack>
 
