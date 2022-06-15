@@ -24,5 +24,5 @@ export default function useModalProvider () {
     }
   };
 
-  return [ useModal, modalContent ] as const;
+  return { useModal, modalContent };
 };

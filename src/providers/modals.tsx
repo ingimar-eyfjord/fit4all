@@ -16,7 +16,7 @@ const content = {
     },
 }
 
-const ModalContext = React.createContext(content);
+const ModalContext = React.createContext({content});
 
 const ModalProvider = ({ children }: any) => {
     let { useModal, modalContent } = useModalProvider();
