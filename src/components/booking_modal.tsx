@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ReactDOM from "react-dom";
 import { ModalContext } from "..//providers/modals";
 import Box from '@mui/material/Box';
@@ -11,8 +11,9 @@ import CardActions from '@mui/material/CardActions';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
-export const Booking_modal = () => {
-  let { useModal, modalContent  } = React.useContext(ModalContext);
+export const BookingModal = () => {
+  let { modal, useModal, modalContent  } = React.useContext(ModalContext);
+
   const bull = (
     <Box
       component="span"
@@ -21,47 +22,51 @@ export const Booking_modal = () => {
       •
     </Box>
   );
+    const HandleModal = ()=>{
+      useModal(false) 
+    }
 
-  if (modalContent.modal) {
-    return ReactDOM.createPortal(
-      <div id="modal" onClick={e => { useModal(false) }}>
-        <Card id="booking_card" sx={{ minWidth: 275 }}>
+    if (modal) {
+      return ReactDOM.createPortal(
+        <div id="modal" onClick={e => { HandleModal() }}>
+          <Card id="booking_card" sx={{ minWidth: 275 }}>
+  
+            <CardHeader
+              action={
+                <Button onClick={e => { HandleModal() }} variant="contained" endIcon={<CloseIcon />}>
+                  Cancel
+                </Button>
+              }
+              title={modalContent.name}
+              subheader={`${modalContent.start}-${modalContent.end}`}
+            />
+            <CardContent>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                Word of the Day
+              </Typography>
+              <Typography variant="h5" component="div">
+                be{bull}nev{bull}o{bull}lent
+              </Typography>
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                adjective
+              </Typography>
+              <Typography variant="body2">
+                well meaning and kindly.
+                <br />
+                {'"a benevolent smile"'}
+              </Typography>
+            </CardContent>
+            <CardActions>
+            <Button variant="contained" endIcon={<CheckIcon />}>
+                  Confirm
+                </Button>
+            </CardActions>
+          </Card>
+        </div>
+  
+        ,
+        document.querySelector("#modal-root") as HTMLElement
+      );
+    } else return null;
 
-          <CardHeader
-            action={
-              <Button onClick={e => { useModal(false) }} variant="contained" endIcon={<CloseIcon />}>
-                Cancel
-              </Button>
-            }
-            title={modalContent.name}
-            subheader={`${modalContent.timeslot[0]}-${modalContent.timeslot[1]}`}
-          />
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Word of the Day
-            </Typography>
-            <Typography variant="h5" component="div">
-              be{bull}nev{bull}o{bull}lent
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              adjective
-            </Typography>
-            <Typography variant="body2">
-              well meaning and kindly.
-              <br />
-              {'"a benevolent smile"'}
-            </Typography>
-          </CardContent>
-          <CardActions>
-          <Button variant="contained" endIcon={<CheckIcon />}>
-                Confirm
-              </Button>
-          </CardActions>
-        </Card>
-      </div>
-
-      ,
-      document.querySelector("#modal-root") as HTMLElement
-    );
-  } else return null;
 };

@@ -38,5 +38,4 @@ export type PlaceType = {
       bookings: any,
       coord: number[],
       timeslot: string[],
-      modal:boolean,
   }

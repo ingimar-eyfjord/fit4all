@@ -1,4 +1,4 @@
-import React, { useState, useContext ,useEffect} from 'react';
+import { useState, useContext } from 'react';
 import './App.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -9,16 +9,13 @@ import GetCurrentLocation from './components/getlocation'
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
-// import { GlobalState } from "./providers/store";
 import SideSelector from './components/sideselector'
-interface Coords {
-  latitude: number;
-  longitude: number;
-}
+import { ModalProvider } from './providers/modals';
+
+
 function App() {
 
-const [position, setPosition] = useState({});
-
+  console.log("rendered")
 
   return (
     <div className="App">
@@ -64,10 +61,13 @@ const [position, setPosition] = useState({});
             divider={<Divider orientation="vertical" flexItem />}
             spacing={1}>
             <TextField id="outlined-basic" label="Search by street" variant="outlined" />
-            <GetCurrentLocation setPosition={setPosition}></GetCurrentLocation>
+            <GetCurrentLocation></GetCurrentLocation>
           </Stack>
 
-        <SideSelector></SideSelector>
+          <ModalProvider>
+            <SideSelector></SideSelector>
+          </ModalProvider>
+
         </Stack>
       </Stack>
 

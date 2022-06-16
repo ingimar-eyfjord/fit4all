@@ -1,30 +1,29 @@
-import React from "react";
+ import React, { useState, useContext } from 'react';
 import useModalProvider from "./usemodal";
-import {Booking_modal} from '../components/booking_modal'
+import {BookingModal} from '../components/booking_modal'
 
-
-const content = {
-    // handleModal: React.Dispatch<React.SetStateAction<object>>,
-    modalContent: {
-        id:1,
-        name: "Tårnbyvej 88, 2770 Kastrup",
-        timeslot: ['00:00', "00:00"],
-        opening: ["09:00", "19:00"],
-        coord: [55.633713, 12.606089],
-        bookings:[],
-        modal:false,
-    },
-}
-
-const ModalContext = React.createContext({content});
-
+let ModalContext:any;
 const ModalProvider = ({ children }: any) => {
-    let { useModal, modalContent } = useModalProvider();
+    let { modal, useModal, modalContent } = useModalProvider();
+    const content = {
+        useModal: useModal,
+        modalContent: {
+            id:1,
+            name: "Tårnbyvej 88, 2770 Kastrup",
+            timeslot: ['00:00', "00:00"],
+            opening: ["09:00", "19:00"],
+            coord: [55.633713, 12.606089],
+            bookings:[],
+        },
+        modal
+    }
+
+    let { Provider } = (ModalContext = React.createContext(content));  
     return (
-        <ModalContext.Provider value={{ useModal, modalContent }}>
-            <Booking_modal/>
+        <Provider value={{ modal, useModal, modalContent }}>
+            <BookingModal/>
             {children}
-        </ModalContext.Provider>
+        </Provider>
     );
 };
 export { ModalContext, ModalProvider } 
