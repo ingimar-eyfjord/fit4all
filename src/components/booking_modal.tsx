@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { ModalContext } from "..//providers/modals";
 import Box from '@mui/material/Box';

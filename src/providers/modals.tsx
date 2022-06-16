@@ -1,4 +1,4 @@
- import React, { useState, useContext } from 'react';
+ import React from 'react';
 import useModalProvider from "./usemodal";
 import {BookingModal} from '../components/booking_modal'
 

@@ -10,6 +10,7 @@ export type PlaceType = {
     opening: string[],
     bookings: BookingsType[]
     coord: number[]
+    distance: number
   };
 
   export type BookingProps = {
@@ -27,6 +28,8 @@ export type PlaceType = {
     opening: string[],
     bookings: BookingsType[]
     coord: number[]
+    distance: number
+
   }[];
  
   export type ModalContent = {

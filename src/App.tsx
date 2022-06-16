@@ -1,4 +1,3 @@
-import { useState, useContext, useEffect } from 'react';
 import './App.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -11,18 +10,9 @@ import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import SideSelector from './components/sideselector'
 import { ModalProvider } from './providers/modals';
-import { GlobalState } from "./providers/store";
 
 
 function App() {
-  const [Store, setStore] = useContext(GlobalState);
-
-  console.log("rendered")
-
-  useEffect(() => {
-    console.log(Store)
-  }, [Store])
-
 
   return (
     <div className="App">
