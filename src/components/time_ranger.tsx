@@ -13,6 +13,7 @@ interface PlaceProps {
 }
 
 export const Time_ranger: React.FC<PlaceProps> = ({ place }): JSX.Element => {
+    const [handleModal, setHandleModal] = useState<boolean>(false)
 
     let { useModal } = useContext(ModalContext);
     const [booking, setBookingState] = useState({
@@ -21,6 +22,10 @@ export const Time_ranger: React.FC<PlaceProps> = ({ place }): JSX.Element => {
         place: place
     });
 
+function HandleModalFC(){
+    useModal(booking) 
+    return null
+}
 
     return (
         <>
@@ -70,9 +75,10 @@ export const Time_ranger: React.FC<PlaceProps> = ({ place }): JSX.Element => {
                     }}
                     sx={{ width: 150 }}
                 />
-                <Button onClick={e => { useModal(booking) }} variant="contained" startIcon={<EventAvailableIcon />}>
+                <Button onClick={e => { setHandleModal(true) }} variant="contained" startIcon={<EventAvailableIcon />}>
                     Book
                 </Button>
+                {handleModal && <HandleModalFC></HandleModalFC>}
             </Stack>
         </>
     );

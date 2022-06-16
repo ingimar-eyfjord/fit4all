@@ -1,5 +1,5 @@
 export const loadMapApi = () => {
-    const mapsURL = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=geometry,places&language=no&region=NO&v=quarterly`;
+    const mapsURL = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCxqLSiTrD6MHBuG0M5G8DHYTIIUzLm1uA&libraries=geometry,places&language=no&region=DK&v=quarterly`;
 
     const scripts = document.getElementsByTagName('script');
     // Go through existing script tags, and return google maps api tag when found.

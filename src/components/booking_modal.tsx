@@ -10,7 +10,7 @@ import CardHeader from '@mui/material/CardHeader';
 import CardActions from '@mui/material/CardActions';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-
+import moment from 'moment'
 export const BookingModal = () => {
   let { modal, useModal, modalContent  } = React.useContext(ModalContext);
 
@@ -25,7 +25,7 @@ export const BookingModal = () => {
     const HandleModal = ()=>{
       useModal(false) 
     }
-
+console.log(modalContent)
     if (modal) {
       return ReactDOM.createPortal(
         <div id="modal" onClick={e => { HandleModal() }}>
@@ -33,27 +33,25 @@ export const BookingModal = () => {
   
             <CardHeader
               action={
-                <Button onClick={e => { HandleModal() }} variant="contained" endIcon={<CloseIcon />}>
-                  Cancel
-                </Button>
+               
+                <CloseIcon sx={{padding:"1rem"}} onClick={e => { HandleModal() }} />
               }
-              title={modalContent.name}
-              subheader={`${modalContent.start}-${modalContent.end}`}
+              title={modalContent.place.address}
             />
             <CardContent>
+              <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
+               Ingimar Eyfjord Smarason
+              </Typography>
+
               <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                Word of the Day
+              Confirm your booking for
               </Typography>
-              <Typography variant="h5" component="div">
-                be{bull}nev{bull}o{bull}lent
+              <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
+              {modalContent.place.address}
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-              </Typography>
-              <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
+              
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+              {moment().format("DD-MM-YYYY")} at {modalContent.start}-{modalContent.end}
               </Typography>
             </CardContent>
             <CardActions>
