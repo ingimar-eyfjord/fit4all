@@ -13,6 +13,7 @@ interface PlaceProps {
 }
 
 export const Time_ranger: React.FC<PlaceProps> = ({ place }): JSX.Element => {
+
     let { useModal } = useContext(ModalContext);
     const [booking, setBookingState] = useState({
         start: "09:00",

@@ -9,7 +9,7 @@ const ModalProvider = ({ children }: any) => {
         useModal: useModal,
         modalContent: {
             id:1,
-            name: "Tårnbyvej 88, 2770 Kastrup",
+            address: "Tårnbyvej 88, 2770 Kastrup",
             timeslot: ['00:00', "00:00"],
             opening: ["09:00", "19:00"],
             coord: [55.633713, 12.606089],

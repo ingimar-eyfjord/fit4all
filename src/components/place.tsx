@@ -66,7 +66,7 @@ const Place: React.FC<PlaceProps> = ({ place }): JSX.Element => {
         id="panel1a-header"
       >
         <Typography sx={{ textAlign: "left" }} component="p">
-          {place.name}
+          {place.address}
         </Typography>
       </AccordionSummary>
       <AccordionDetails>

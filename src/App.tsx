@@ -51,7 +51,8 @@ function App() {
         <Stack
           direction="column"
           divider={<Divider orientation="horizontal" flexItem />}
-          spacing={1}>
+          sx={{minWidth: "50vw"}}
+          >
            {scriptLoaded && (
                 <Map
                   mapType={google.maps.MapTypeId.ROADMAP}
@@ -59,8 +60,6 @@ function App() {
                   setDistanceInKm={setDistanceInKm}
                 />
             )}
-            {distanceInKm > -1 && renderDistanceSentence()}
-          Imagine this to be a google map
         </Stack>
 
         <Stack

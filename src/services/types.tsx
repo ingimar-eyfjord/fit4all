@@ -6,7 +6,7 @@ export type BookingsType = {
   
 export type PlaceType = {
     id: number,
-    name: string,
+    address: string,
     opening: string[],
     bookings: BookingsType[]
     coord: number[]
@@ -18,13 +18,13 @@ export type PlaceType = {
     opening: string[],
     coord: number[]
     id:number,
-    name: string,
+    address: string,
     bookings: BookingsType[]
   }; 
 
   export type PlaceTypes = {
     id: number,
-    name: string,
+    address: string,
     opening: string[],
     bookings: BookingsType[]
     coord: number[]
@@ -34,7 +34,7 @@ export type PlaceType = {
  
   export type ModalContent = {
       id: number,
-      name: string,
+      address: string,
       opening: string[],
       bookings: any,
       coord: number[],

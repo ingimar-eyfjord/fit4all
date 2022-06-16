@@ -1,6 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Map.scss';
-
+import { make_json } from '../services/make_json'
+import marker_svg from './marker'
+const logo = require("./marker.svg") as string;
 interface IMap {
     mapType: google.maps.MapTypeId;
     mapTypeControl?: boolean;
@@ -12,49 +14,83 @@ interface IMarker {
     latitude: number;
     longitude: number;
 }
+// interface IMarkers {
+//     address: string;
+//     latitude: number;
+//     longitude: number;
+// }[]
 
 type GoogleLatLng = google.maps.LatLng;
 type GoogleMap = google.maps.Map;
 type GoogleMarker = google.maps.Marker;
 type GooglePolyline = google.maps.Polyline;
 
-const Map: React.FC<IMap> = ({ mapType, mapTypeControl = false, setDistanceInKm}) => {
+const Map: React.FC<IMap> = ({ mapType, mapTypeControl = false, setDistanceInKm }) => {
 
     const ref = useRef<HTMLDivElement>(null);
     const [map, setMap] = useState<GoogleMap>();
     const [marker, setMarker] = useState<IMarker>();
+    // const [initialMarkers, setInitialMarkers]  = useState<IMarkers>();
     const [homeMarker, setHomeMarker] = useState<GoogleMarker>();
     const [googleMarkers, setGoogleMarkers] = useState<GoogleMarker[]>([]);
     const [listenerIdArray, setListenerIdArray] = useState<any[]>([]);
     const [LastLineHook, setLastLineHook] = useState<GooglePolyline>();
 
+    const icons: Record<string, { icon: string }> = {
+        courts: {
+            icon: window.location.origin + '/assets/images/marker.png',
+        },
+    };
+
+
     const startMap = (): void => {
         if (!map) {
             defaultMapStart();
         } else {
-            const homeLocation = new google.maps.LatLng(65.166013499, 13.3698147);
+            const homeLocation = new google.maps.LatLng(55.6756165015799, 12.567361105967253);
             setHomeMarker(addHomeMarker(homeLocation));
+            const places = make_json()
+            // Create markers.
+            for (const add of places) {
+                let position = new google.maps.LatLng(add.coord[0], add.coord[1])
+                const infowindow = new google.maps.InfoWindow({
+                    content: add.address,
+                  });
+                const marker = new google.maps.Marker({
+                    position: position,
+                    // icon: marker_svg as string,
+                    map: map,
+                    title: add.address,
+                });
+                // marker.addListener("click", () => {
+                //     infowindow.open({
+                //       anchor: marker,
+                //       map,
+                //       shouldFocus: false,
+                //     });
+                //   });
+            }
         }
     };
     useEffect(startMap, [map]);
 
     const defaultMapStart = (): void => {
-        const defaultAddress = new google.maps.LatLng(65.166013499, 13.3698147);
-        initMap(4, defaultAddress);
+        const defaultAddress = new google.maps.LatLng(55.6756165015799, 12.567361105967253);
+        initMap(11, defaultAddress);
     };
 
-    const initEventListener = ():void => {
-        if (map) {
-            google.maps.event.addListener(map, 'click', function(e) {
-                coordinateToAddress(e.latLng);
-            })
-        }
-    };
-    useEffect(initEventListener, [map]);
+    // const initEventListener = (): void => {
+    //     if (map) {
+    //         google.maps.event.addListener(map, 'click', function (e) {
+    //             coordinateToAddress(e.latLng);
+    //         })
+    //     }
+    // };
+    // useEffect(initEventListener, [map]);
 
     const coordinateToAddress = async (coordinate: GoogleLatLng) => {
         const geocoder = new google.maps.Geocoder();
-        await geocoder.geocode({ location: coordinate}, function (results, status) {
+        await geocoder.geocode({ location: coordinate }, function (results, status) {
             if (status === 'OK') {
                 setMarker({
                     address: results[0].formatted_address,
@@ -72,14 +108,12 @@ const Map: React.FC<IMap> = ({ mapType, mapTypeControl = false, setDistanceInKm}
     }, [marker]);
 
     const addMarker = (location: GoogleLatLng): void => {
-        const marker:GoogleMarker = new google.maps.Marker({
+        const marker: GoogleMarker = new google.maps.Marker({
             position: location,
             map: map,
-            icon: getIconAttributes('#000000')
+            icon: logo,
         });
-
         setGoogleMarkers(googleMarkers => [...googleMarkers, marker]);
-
         const listenerId = marker.addListener('click', () => {
             const homePos = homeMarker?.getPosition();
             const markerPos = marker.getPosition();
@@ -93,8 +127,8 @@ const Map: React.FC<IMap> = ({ mapType, mapTypeControl = false, setDistanceInKm}
 
                 const line = new google.maps.Polyline({
                     path: [
-                        { lat: homePos.lat(), lng: homePos.lng()},
-                        { lat: markerPos.lat(), lng: markerPos.lng()},
+                        { lat: homePos.lat(), lng: homePos.lng() },
+                        { lat: markerPos.lat(), lng: markerPos.lng() },
                     ],
                     icons: [
                         {
@@ -113,10 +147,9 @@ const Map: React.FC<IMap> = ({ mapType, mapTypeControl = false, setDistanceInKm}
 
         setListenerIdArray(listenerIdArray => [...listenerIdArray, listenerId]);
     };
-
     useEffect(() => {
         listenerIdArray.forEach((listenerId) => {
-           google.maps.event.removeListener(listenerId);
+            google.maps.event.removeListener(listenerId);
         });
 
         setListenerIdArray([]);
@@ -130,12 +163,11 @@ const Map: React.FC<IMap> = ({ mapType, mapTypeControl = false, setDistanceInKm}
     }, [LastLineHook]);
 
     const addHomeMarker = (location: GoogleLatLng): GoogleMarker => {
-        const homeMarkerConst:GoogleMarker = new google.maps.Marker({
+        const homeMarkerConst: GoogleMarker = new google.maps.Marker({
             position: location,
             map: map,
-            icon: {
-                url: window.location.origin + '/assets/images/homeAddressMarker.png'
-            }
+            // icon: marker_svg,
+            title: "Hello World!",
         });
 
         homeMarkerConst.addListener('click', () => {
@@ -145,17 +177,8 @@ const Map: React.FC<IMap> = ({ mapType, mapTypeControl = false, setDistanceInKm}
 
         return homeMarkerConst;
     };
+    
 
-    const getIconAttributes = (iconColor: string) => {
-        return {
-            path: 'M11.0639 15.3003L26.3642 2.47559e-05L41.6646 15.3003L26.3638 51.3639L11.0639 15.3003 M22,17.5a4.5,4.5 0 1,0 9,0a4.5,4.5 0 1,0 -9,0Z',
-            fillColor: iconColor,
-            fillOpacity: 0.8,
-            strokeColor: 'pink',
-            strokeWeight: 2,
-            anchor: new google.maps.Point(30, 50)
-        };
-    };
 
     const initMap = (zoomLevel: number, address: GoogleLatLng): void => {
         if (ref.current) {
