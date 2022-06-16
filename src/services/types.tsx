@@ -28,8 +28,6 @@ export type PlaceType = {
     bookings: BookingsType[]
     coord: number[]
   }[];
-
-
  
   export type ModalContent = {
       id: number,
@@ -39,3 +37,8 @@ export type PlaceType = {
       coord: number[],
       timeslot: string[],
   }
+
+  export type Coords = {
+    lat: string[],
+    long: string[],
+    }

@@ -1,8 +1,6 @@
 class Functions {
   
-  distanceInKmBetweenEarthCoordinates(lat1:number, lon1:number) {
-    let lat2 = 55.652358
-    let lon2 = 12.519486
+  distanceInKmBetweenEarthCoordinates(lat1:number, lon1:number, lat2:number, lon2:number) {
     var R = 6371; // km
     var dLat = toRad(lat2-lat1);
     var dLon = toRad(lon2-lon1);

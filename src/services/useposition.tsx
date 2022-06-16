@@ -1,5 +1,5 @@
 import React, { useState, useContext ,useEffect} from 'react';
-// import { GlobalState } from "../providers/store";
+import { GlobalState } from "../providers/store";
 
 interface Coords {
     latitude: number;
@@ -8,18 +8,14 @@ interface Coords {
 // const Child = ({ setValue2 }: { setValue2: React.Dispatch<React.SetStateAction<string>> }) => {
 
 export const usePosition = () => {
-    const [position, setPosition] = useState({});
+    const [Store, setStore] = useContext(GlobalState);
     const [error, setError] = useState<string | null>(null);
     const onChange = (response: any) => {
-        const { latitude, longitude }: Coords = response.coords;
-        setPosition({
-            latitude: latitude,
-            longitude: longitude,
-        });
-        // setStore({
-        //     latitude: latitude,
-        //     longitude: longitude,
-        // });
+    const { latitude, longitude }: Coords = response.coords;
+      setStore({Location:{
+        latitude: latitude,
+        longitude: longitude,
+    }})
     };
     const onError = (error: any) => {
         setError(error);
@@ -33,6 +29,6 @@ export const usePosition = () => {
         let watcher = geo.watchPosition(onChange, onError);
         return () => geo.clearWatch(watcher);
     }, []);
-    return { ...position, error };
+    return null;
 }
 

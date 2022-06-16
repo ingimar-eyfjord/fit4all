@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import './App.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -11,11 +11,18 @@ import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import SideSelector from './components/sideselector'
 import { ModalProvider } from './providers/modals';
+import { GlobalState } from "./providers/store";
 
 
 function App() {
+  const [Store, setStore] = useContext(GlobalState);
 
   console.log("rendered")
+
+  useEffect(() => {
+    console.log(Store)
+  }, [Store])
+
 
   return (
     <div className="App">
@@ -28,12 +35,9 @@ function App() {
         divider={<Divider orientation="vertical" flexItem />}
         spacing={3}
         alignContent="center"
-        // alignItems="center"
         justifyContent="center"
-        // justifyItems="center"
         sx={{ width: "100%", height: "100%", marginTop: "3rem" }}
       >
-
         <Stack
           direction="column"
           divider={<Divider orientation="horizontal" flexItem />}
