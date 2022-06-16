@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -10,10 +11,29 @@ import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import SideSelector from './components/sideselector'
 import { ModalProvider } from './providers/modals';
+import Map from './Map/';
+import {loadMapApi} from "./utils/GoogleMapsUtils";
+
 
 
 function App() {
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+  const [distanceInKm, setDistanceInKm] = useState<number>(-1);
 
+  useEffect(() => {
+      const googleMapScript = loadMapApi();
+      googleMapScript.addEventListener('load', function () {
+          setScriptLoaded(true);
+      });
+  }, []);
+
+  const renderDistanceSentence = () => {
+      return (
+          <div className='distance-info'>
+              {`Distance between selected marker and home address is ${distanceInKm}km.`}
+          </div>
+      );
+  };
   return (
     <div className="App">
       <header className="App-header">
@@ -32,17 +52,14 @@ function App() {
           direction="column"
           divider={<Divider orientation="horizontal" flexItem />}
           spacing={1}>
-          <Box
-            sx={{
-              width: 600,
-              height: 700,
-              backgroundColor: 'primary.dark',
-              '&:hover': {
-                backgroundColor: 'primary.main',
-                opacity: [0.9, 0.8, 0.7],
-              },
-            }}
-          />
+           {scriptLoaded && (
+                <Map
+                  mapType={google.maps.MapTypeId.ROADMAP}
+                  mapTypeControl={true}
+                  setDistanceInKm={setDistanceInKm}
+                />
+            )}
+            {distanceInKm > -1 && renderDistanceSentence()}
           Imagine this to be a google map
         </Stack>
 
