@@ -8,7 +8,6 @@ import TextField from '@mui/material/TextField';
 import GetCurrentLocation from './components/getlocation'
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-import Box from '@mui/material/Box';
 import SideSelector from './components/sideselector'
 import { ModalProvider } from './providers/modals';
 import Map from './Map/';
@@ -27,17 +26,11 @@ function App() {
       });
   }, []);
 
-  const renderDistanceSentence = () => {
-      return (
-          <div className='distance-info'>
-              {`Distance between selected marker and home address is ${distanceInKm}km.`}
-          </div>
-      );
-  };
+ 
   return (
     <div className="App">
       <header className="App-header">
-        <div>Hello</div>
+        <div>Fit4All coding interview</div>
       </header>
 
       <Stack

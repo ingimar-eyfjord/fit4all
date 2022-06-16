@@ -21,6 +21,7 @@ export const Time_ranger: React.FC<PlaceProps> = ({ place }): JSX.Element => {
         place: place
     });
 
+
     return (
         <>
             <Stack
